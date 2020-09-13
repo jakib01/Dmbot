@@ -28,7 +28,7 @@ async def on_command_error(ctx, error):
 
 @bot.command(pass_context=True)
 @commands.has_permissions(kick_members=True)
-async def userinfo(ctx, user: discord.member):
+async def userinfo(ctx, user: discord.new role):
     try:
         embed = discord.Embed(title="{}'s info".format(user.name),
                               description="Here's what I could find.",
@@ -55,7 +55,7 @@ async def send(ctx, *, content: str):
             await c.send(content)
             await ctx.send("Message Sent to Targets")
         except:
-            await ctx.send("DM can't send to : {} :x: ".format(member))
+            await ctx.send("DM can't send to : {} :x: ".format(new role))
 
 
 bot.run("NzU0Nzc2NDA2MDI1ODMwNTEy.X15qTg.KO4VOaqR64gaJZykAyWFkH9mE74")
