@@ -28,7 +28,7 @@ async def on_command_error(ctx, error):
 
 @bot.command(pass_context=True)
 @commands.has_permissions(kick_members=True)
-async def userinfo(ctx, user: discord.role):
+async def userinfo(ctx, user: discord.Member):
     try:
         embed = discord.Embed(title="{}'s info".format(user.name),
                               description="Here's what I could find.",
@@ -49,13 +49,13 @@ async def userinfo(ctx, user: discord.role):
 @commands.has_permissions(administrator=True)
 @bot.command(pass_context=True)
 async def send(ctx, *, content: str):
-    for member in ctx.role.guild:
+    for member in ctx.guild.members:
         c = await member.create_dm()
         try:
             await c.send(content)
             await ctx.send("Message Sent to Targets")
         except:
-            await ctx.send("DM can't send to : {} :x: ".format(role))
+            await ctx.send("DM can't send to : {} :x: ".format(member))
 
 
 bot.run("NzU0Nzc2NDA2MDI1ODMwNTEy.X15qTg.KO4VOaqR64gaJZykAyWFkH9mE74")
