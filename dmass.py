@@ -26,36 +26,28 @@ async def on_command_error(ctx, error):
         return
 
 
-@bot.command(pass_context=True)
-@commands.has_permissions(kick_members=True)
-async def userinfo(ctx, user: discord.Member):
-    try:
-        embed = discord.Embed(title="{}'s info".format(user.name),
-                              description="Here's what I could find.",
-                              color=discord.Colour.dark_red())
-
-        embed.add_field(name="Name", value=user.name, inline=True)
-        embed.add_field(name="ID", value=user.id, inline=True)
-        embed.add_field(name="Status", value=user.status, inline=True)
-        embed.add_field(name="Highest role", value=user.top_role)
-        embed.add_field(name="Joined", value=user.joined_at)
-        embed.set_thumbnail(url=user.avatar_url)
-
-        await ctx.send(embed=embed)
-    except:
-        await ctx.send("Missing Requrired Args")
-
-
 @commands.has_permissions(administrator=True)
-@bot.command(pass_context=True)
-async def send(ctx, *, content: str):
-    for member in ctx.guild.members:
-        c = await member.create_dm()
+@bot.command()
+async def announce(ctx, role: discord.Role, *, msg): # announces to the specified role
+    global members
+    members = [m for m in ctx.guild.members if role in m.roles]
+    for m in members:
         try:
-            await c.send(content)
-            await ctx.send("Message Sent to Targets")
+            await m.send(msg)
+            await ctx.send(f":white_check_mark: Message sent to {m}")
         except:
-            await ctx.send("DM can't send to : {} :x: ".format(member))
+            await ctx.send(f":x: No DM could be sent to {m}")
+    await ctx.send("Done!")
+@announce.error
+# feel free to add another decorator here if you wish for it to send the same messages
+# for the same exceptions: e.g. @userinfo.error
+async def _announcement_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send(":x: Role couldn't be found!")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send(f":x: {ctx.author.mention}, you don't have sufficient permissions.")
+    else:
+        await ctx.send(error)
 
 
 bot.run("NzU0Nzc2NDA2MDI1ODMwNTEy.X15qTg.KO4VOaqR64gaJZykAyWFkH9mE74")
