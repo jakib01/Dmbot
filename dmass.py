@@ -5,7 +5,7 @@ import random
 import time
 
 
-bot = commands.Bot(command_prefix='+', case_insensitive=True)
+bot = commands.Bot(command_prefix='-', case_insensitive=True)
 
 
 @bot.event
