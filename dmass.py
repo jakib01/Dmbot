@@ -55,7 +55,7 @@ async def send(ctx, *, content: str):
             await c.send(content)
             await ctx.send("Message Sent to Targets")
         except:
-            await ctx.send("DM can't send to : {} :x: ".format(member))
+            await ctx.send("DM can't send to : {} :x: ".format(NEW ROLE))
 
 
 bot.run("NzU0Nzc2NDA2MDI1ODMwNTEy.X15qTg.KO4VOaqR64gaJZykAyWFkH9mE74")
