@@ -12,7 +12,7 @@ bot = commands.Bot(command_prefix='-', case_insensitive=True)
 async def on_ready():
     print(f'Logged in as {bot.user.name}(ID: +{bot.user.id}) |'
           f'Connected to {str(len(bot.guilds))} servers |'
-          f'Connected to {str(len(set(bot.get_all_members())))} users')
+          f'Connected to {str(len(set(bot.new role())))} users')
     print('--------')
     print('CREATED AND HOSTED BY INVADER OP | Fixed Version')
 
